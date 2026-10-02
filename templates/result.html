@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prediction Result</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<h1>{% if skills is defined %}Resume Analysis Result{% else %}Placement Prediction Result{% endif %}</h1>
+
+<div class="result-box">
+{% if prediction_text %}
+<h2>{{ prediction_text }}</h2>
+{% endif %}
+
+{% if probability is defined %}
+<p>Placement probability: {{ probability }}%</p>
+{% endif %}
+
+{% if skills is defined %}
+<h2>Detected Skills</h2>
+<p>{{ skills|join(', ') if skills else 'No matching skills found' }}</p>
+{% endif %}
+
+{% if missing is defined %}
+<h2>Missing Skills</h2>
+<p>{{ missing|join(', ') if missing else 'No missing skills' }}</p>
+{% endif %}
+
+{% if graph %}
+<img src="data:image/png;base64,{{ graph }}" alt="Placement graph">
+{% endif %}
+</div>
+
+<a href="/">Try Again</a>
+
+</body>
+</html>
